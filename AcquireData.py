@@ -11,7 +11,9 @@ import requests
 import json
 import numpy as np
 import matplotlib as plt
-from bokeh.plotting import figure, show, output_file, vplot
+from bokeh.plotting import figure, show, output_file, Plot
+import bokeh
+
 
 data=requests.get(url='https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?api_key=ekga5KU471MGZ5SnFsTM')
 #data=requests.get('https://www.quandl.com/api/v3/datasets/WIKI/FB/data.json?api_key=ekga5KU471MGZ5SnFsTM')
@@ -20,20 +22,37 @@ seriesdata=pd.Series(pf.dataset_data) #note that the closing value is at entry 4
 
 L = len(seriesdata['data']) #total number of data points to plot
 
-Plot_Array = np.zeros(L)
+Price = np.zeros(L)
+Pdate=[]
 
 for n in range(L):
-    Plot_Array[n]=seriesdata['data'][n][4]
+    Price[n]=seriesdata['data'][L-n-1][4]
+    Pdate.append(seriesdata['data'][L-n-1][0])
     
-plt.pyplot.plot(Plot_Array)
+#bokeh.plotting.
+ 
+#plt.pyplot.plot(Plot_Array)
 
+# Create plot of stock price
+p2 = figure(x_axis_type="datetime")
 
+p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
+p2.line(Pdate, Price, color='navy', legend='avg')
 
+p2.title = "Stock Price History"
+p2.grid.grid_line_alpha=0
+p2.xaxis.axis_label = 'Day'
+p2.yaxis.axis_label = 'Price'
+p2.ygrid.band_fill_color="olive"
+p2.ygrid.band_fill_alpha = 0.1
 
+show(p2)  # open a browser
+
+bokeh.plotting.
 
 #loop over all data entries and append
 
-newdata=json.loads(data.text)
+#newdata=json.loads(data.text)
 #frame=pd.read_json(newdata)
 #pd.series(data)
 
@@ -49,4 +68,4 @@ newdata=json.loads(data.text)
 #elevations = response.read()
 #data = json.loads(elevations)
 #json_normalize(data['results'])
-pd.DataFrame(df)
+#pd.DataFrame(df)

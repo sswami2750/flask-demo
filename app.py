@@ -1,4 +1,11 @@
 from flask import Flask, render_template, request, redirect
+import pandas as pd
+import requests
+#import json
+import numpy as np
+#import matplotlib as plt
+from bokeh.plotting import figure, show, output_file, Plot
+#import bokeh
 
 app = Flask(__name__)
 
@@ -12,12 +19,40 @@ def index():
     Name = "Michael"
     return render_template('index.html')
     
-@app.route('/signup', methods = ['POST'])
-def signup():
+@app.route('/StockData', methods = ['POST'])
+def StockData():
     stock = request.form['Ticker Symbol']
-    print("The email address is '" + email + "'")
+    Ptype = int(request.form['Price'])
+    
+    #Create Dict for Price Type
+#    Pdict={}
+#    Pdict["Open"]=1
+#    Pdict["High"]=2
+#    Pdict["Low"]=3
+#    Pdict["Close"]=4
+    
+    #Grab Data from Quandl API
+    data=requests.get(url='https://www.quandl.com/api/v3/datasets/WIKI/' + stock + '/data.json?start_date=2012-11-01?api_key=ekga5KU471MGZ5SnFsTM')
+    pf=pd.read_json(data.text)
+    seriesdata=pd.Series(pf.dataset_data) #note that the closing value is at entry 4 of the data node
+    
+    #Initialize Arrays & Parameters
+    L = len(seriesdata['data']) #total number of data points to plot
+    Price = np.zeros(L)
+    Pdate=[]
+    
+    for n in range(L):
+        Price[n]=seriesdata['data'][L-n-1][Ptype]
+        Pdate.append(seriesdata['data'][L-n-1][0])
+#    
+    print(L)
+    print(Ptype)
+    print(Price)
+    
     return redirect('/')
 
 if __name__ == '__main__':
-  app.run(port=33507)
+    app.run(host='0.0.0.0')
+  #app.run(port=33507)
+    
 
