@@ -51,7 +51,7 @@ def StockData():
     
     # Create plot of stock price
     Pdate=np.linspace(0,L-1,L)
-    output_file("stocks.html", title="Stock Price Example")
+    output_file("static/stocks.html", title="Stock Price Example")
     p2 = figure(x_axis_type="datetime")
     
     #p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
@@ -64,9 +64,9 @@ def StockData():
     p2.ygrid.band_fill_color="olive"
     p2.ygrid.band_fill_alpha = 0.1
     
-    show(p2)  # open a browser
+    #show(p2)  # open a browser
     
-    return redirect('/stocks')
+    return redirect('static/stocks.html')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0')
