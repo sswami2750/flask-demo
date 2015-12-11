@@ -7,13 +7,30 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 	</head>
+
 	<head>
         <title>{{ author }}'s app</title>
     </head>
 
     <body>
-       <h2>Hello {{ name }}!</h2>
+       <h2>Please enter a valid stock ticker symbol eg: FB and select the desired data.</h2>
     </body>
+
+	<form action="/signup" method="post">
+      <input type="text" name="Ticker Symbol"></input>
+      <input type="radio" name="Price" value="Open">Open</input>
+ 	  <input type="radio" name="Price" value="High">High</input>
+      <input type="radio" name="Price" value="Low">Low</input>
+      <input type="radio" name="Price" value="Close">Close</input>
+      <input type="submit" value="Signup"></input>
+    </form>
+<!-- 	<head>
+        <title>{{ author }}'s app</title>
+    </head>
+
+    <body>
+       <h2>Hello {{ name }}!</h2>
+    </body> -->
 	<!-- <body>
 		<div>
   			<h1>Hello, World!</h1>
