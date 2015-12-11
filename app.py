@@ -45,9 +45,26 @@ def StockData():
         Price[n]=seriesdata['data'][L-n-1][Ptype]
         Pdate.append(seriesdata['data'][L-n-1][0])
 #    
-    print(L)
-    print(Ptype)
-    print(Price)
+#    print(L)
+#    print(Ptype)
+#    print(Price)
+    
+    # Create plot of stock price
+    Pdate=np.linspace(0,L-1,L)
+    output_file("stocks.html", title="Stock Price Example")
+    p2 = figure(x_axis_type="datetime")
+    
+    #p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
+    p2.line(Pdate, Price, color='navy', legend='avg')
+    
+    p2.title = "Stock Price History"
+    p2.grid.grid_line_alpha=0
+    p2.xaxis.axis_label = 'Day'
+    p2.yaxis.axis_label = 'Price'
+    p2.ygrid.band_fill_color="olive"
+    p2.ygrid.band_fill_alpha = 0.1
+    
+    show(p2)  # open a browser
     
     return redirect('/')
 
