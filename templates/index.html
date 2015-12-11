@@ -13,16 +13,21 @@
     </head>
 
     <body>
-       <h2>Please enter a valid stock ticker symbol eg: FB and select the desired data.</h2>
+       <h2>Enter a valid stock ticker symbol (eg: FB) then select the desire price type.</h2>
     </body>
 
 	<form action="/signup" method="post">
       <input type="text" name="Ticker Symbol"></input>
+      <br></br>
       <input type="radio" name="Price" value="Open">Open</input>
+      <br></br>
  	  <input type="radio" name="Price" value="High">High</input>
+ 	  <br></br>
       <input type="radio" name="Price" value="Low">Low</input>
+      <br></br>
       <input type="radio" name="Price" value="Close">Close</input>
-      <input type="submit" value="Signup"></input>
+      <br></br>
+      <input type="submit" value="Submit"></input>
     </form>
 <!-- 	<head>
         <title>{{ author }}'s app</title>
