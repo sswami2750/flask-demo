@@ -47,7 +47,6 @@ def StockData():
     #output_file("stocks.html", title="Stock Price Example", autosave=True)
     Pdate=np.linspace(0,L-1,L)
     p2 = figure(x_axis_type="datetime")
-    
     #p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
     p2.line(Pdate, Price, color='navy')
     p2.title = "Stock Price History"
@@ -56,15 +55,15 @@ def StockData():
     p2.yaxis.axis_label = 'Price'
     p2.ygrid.band_fill_color="olive"
     p2.ygrid.band_fill_alpha = 0.1
-    #html = file_html(p2, CDN, "stocks")
+    html = file_html(p2, CDN, "stocks")
     
-    #with open("static/stocks.html", "w") as f:
-    #    f.write(html)
+    with open("static/stocks.html", "w") as f:
+        f.write(html)
 
     
     #show(p2)  # open a browser
     
-    return redirect('/index')
+    return redirect('static/stocks.html')
 
 if __name__ == '__main__':
     #app.run(host='0.0.0.0')
