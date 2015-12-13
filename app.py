@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect
 import pandas as pd
 import requests
 import numpy as np
-from bokeh.plotting import figure, show, output_file, Plot, file_html
+from bokeh.plotting import figure, show, output_file, Plot
 from bokeh.resources import CDN
 #import bokeh
 
@@ -10,7 +10,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def main():
-  return redirect('/index')
+    return redirect('/index')
 
 @app.route('/index')
 def index():
@@ -53,10 +53,10 @@ def StockData():
     p2.yaxis.axis_label = 'Price'
     p2.ygrid.band_fill_color="olive"
     p2.ygrid.band_fill_alpha = 0.1
-    html = file_html(p2, CDN, "stocks")
+    #html = file_html(p2, CDN, "stocks")
     
-    with open("static/stocks.html", "w") as f:
-        f.write(html)
+    #with open("static/stocks.html", "w") as f:
+    #    f.write(html)
 
     
     #show(p2)  # open a browser
