@@ -60,7 +60,6 @@ def StockData():
 
     
     #show(p2)  # open a browser
-    xx
     return redirect('static/stocks.html')
 
 if __name__ == '__main__':
