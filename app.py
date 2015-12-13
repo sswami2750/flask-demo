@@ -1,9 +1,7 @@
 from flask import Flask, render_template, request, redirect
 import pandas as pd
 import requests
-#import json
 import numpy as np
-#import matplotlib as plt
 from bokeh.plotting import figure, show, output_file, Plot, file_html
 from bokeh.resources import CDN
 #import bokeh
@@ -62,7 +60,7 @@ def StockData():
 
     
     #show(p2)  # open a browser
-    
+    xx
     return redirect('static/stocks.html')
 
 if __name__ == '__main__':
