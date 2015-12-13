@@ -50,17 +50,16 @@ def StockData():
     
     #p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
     p2.line(Pdate, Price, color='navy')
-    
     p2.title = "Stock Price History"
     p2.grid.grid_line_alpha=0
     p2.xaxis.axis_label = 'Day'
     p2.yaxis.axis_label = 'Price'
     p2.ygrid.band_fill_color="olive"
     p2.ygrid.band_fill_alpha = 0.1
-    html = file_html(p2, CDN, "my plot")
+    #html = file_html(p2, CDN, "stocks")
     
-    with open("static/stocks.html", "w") as f:
-        f.write(html)
+    #with open("static/stocks.html", "w") as f:
+    #    f.write(html)
 
     
     #show(p2)  # open a browser
@@ -68,7 +67,7 @@ def StockData():
     return redirect('static/stocks.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
-    #app.run(port=33507)
+    #app.run(host='0.0.0.0')
+    app.run(port=33507)
     
 
