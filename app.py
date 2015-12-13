@@ -44,7 +44,7 @@ def StockData():
 #    
     
     # Create plot of stock price
-    output_file("stocks.html", title="Stock Price Example", autosave=True)
+    #output_file("stocks.html", title="Stock Price Example", autosave=True)
     Pdate=np.linspace(0,L-1,L)
     p2 = figure(x_axis_type="datetime")
     
