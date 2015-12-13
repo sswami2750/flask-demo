@@ -4,7 +4,8 @@ import requests
 #import json
 import numpy as np
 #import matplotlib as plt
-from bokeh.plotting import figure, show, output_file, Plot
+from bokeh.plotting import figure, show, output_file, Plot, file_html
+from bokeh.resources import CDN
 #import bokeh
 
 app = Flask(__name__)
@@ -21,17 +22,12 @@ def index():
     
 @app.route('/StockData', methods = ['POST'])
 def StockData():
+    
+    # Request input data from html webform
     stock = request.form['Ticker Symbol']
     Ptype = int(request.form['Price'])
     
-    #Create Dict for Price Type
-#    Pdict={}
-#    Pdict["Open"]=1
-#    Pdict["High"]=2
-#    Pdict["Low"]=3
-#    Pdict["Close"]=4
-    
-    #Grab Data from Quandl API
+    #Grab Data from Quandl API & Create Pandas Data Frame
     data=requests.get(url='https://www.quandl.com/api/v3/datasets/WIKI/' + stock + '/data.json?start_date=2012-11-01?api_key=ekga5KU471MGZ5SnFsTM')
     pf=pd.read_json(data.text)
     seriesdata=pd.Series(pf.dataset_data) #note that the closing value is at entry 4 of the data node
@@ -41,21 +37,19 @@ def StockData():
     Price = np.zeros(L)
     Pdate=[]
     
+    
     for n in range(L):
         Price[n]=seriesdata['data'][L-n-1][Ptype]
         Pdate.append(seriesdata['data'][L-n-1][0])
 #    
-#    print(L)
-#    print(Ptype)
-#    print(Price)
     
     # Create plot of stock price
+    output_file("stocks.html", title="Stock Price Example", autosave=True)
     Pdate=np.linspace(0,L-1,L)
-    output_file("static/stocks.html", title="Stock Price Example")
     p2 = figure(x_axis_type="datetime")
     
     #p2.circle(Pdate, Price, size=4, color='darkgrey', alpha=0.2, legend='close')
-    p2.line(Pdate, Price, color='navy', legend='avg')
+    p2.line(Pdate, Price, color='navy')
     
     p2.title = "Stock Price History"
     p2.grid.grid_line_alpha=0
@@ -63,6 +57,11 @@ def StockData():
     p2.yaxis.axis_label = 'Price'
     p2.ygrid.band_fill_color="olive"
     p2.ygrid.band_fill_alpha = 0.1
+    html = file_html(p2, CDN, "my plot")
+    
+    with open("static/stocks.html", "w") as f:
+        f.write(html)
+
     
     #show(p2)  # open a browser
     
