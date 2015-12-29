@@ -48,7 +48,6 @@ p2.ygrid.band_fill_alpha = 0.1
 
 show(p2)  # open a browser
 
-bokeh.plotting.
 
 #loop over all data entries and append
 
